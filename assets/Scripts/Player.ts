@@ -4,6 +4,7 @@ import EnemyBase from "./Base/EnemyBase";
 import RoleBase from "./Base/RoleBase";
 import EnemyDetector from "./EnemyDetector";
 import Game from "./Game";
+import EventManager, { EventType } from "./Manager/EventManager";
 import FSMManager from "./Manager/FSMManager";
 import DefaultWeapon from "./Weapon/DefaultWeapon";
 import WeaponHolder from "./WeaponHolder";
@@ -17,14 +18,17 @@ export default class Player extends RoleBase {
     @property(EnemyDetector)
     public enemyDetector: EnemyDetector = null;
     public target: EnemyBase;
+    public autoFire: boolean;
 
     protected onLoad(): void {
+        EventManager.GetInstance().On(EventType.MouseDown, this.OnMouseDown.bind(this));
         cc.systemEvent.on(cc.SystemEvent.EventType.KEY_DOWN, this.OnKeyDown, this);
         cc.systemEvent.on(cc.SystemEvent.EventType.KEY_UP, this.OnKeyUp, this);
     }
 
     public Init(game: Game) {
         super.Init(game);
+        this.autoFire = false;
         this.speed = 100;
         this.weaponHolder.WeaponHolderInit(this);
         this.enemyDetector.EnemyDetectorInit(this);
@@ -36,6 +40,10 @@ export default class Player extends RoleBase {
         let defaultWeapon = newDefaultWeapon.getComponent(DefaultWeapon);
         defaultWeapon.DefaultWeaponInit(this.weaponHolder);
         this.weaponHolder.ChangeWeapon(defaultWeapon);
+    }
+
+    private OnMouseDown() {
+        if (this.target) this.weaponHolder.TryFire();
     }
 
     private OnKeyDown(event: cc.Event.EventKeyboard) {
@@ -51,7 +59,7 @@ export default class Player extends RoleBase {
     }
 
     protected update(dt: number): void {
-        if (this.target) this.weaponHolder.TryFire();
+        if (this.target && this.autoFire) this.weaponHolder.TryFire();
     }
 }
 

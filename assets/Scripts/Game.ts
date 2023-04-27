@@ -1,7 +1,5 @@
 import EnemyBase from "./Base/EnemyBase";
-import MouseMouveDate from "./EventDate/MouseMouveDate";
 import EnemyManager from "./Manager/EnemyManager";
-import EventManager, { EventType } from "./Manager/EventManager";
 import FSMManager from "./Manager/FSMManager";
 import MoudleManager from "./Manager/MoudleManager";
 import Player from "./Player";
@@ -19,12 +17,7 @@ export default class Game extends cc.Component {
     @property(cc.Prefab)
     defaultWeaponPrefab: cc.Prefab = null;
     protected onLoad(): void {
-        this.node.on(cc.Node.EventType.MOUSE_MOVE, this.MouseMove, this);
         this.Init();
-    }
-
-    public MouseMove(e: cc.Event.EventMouse) {
-        EventManager.GetInstance().Send(EventType.MouseMove, new MouseMouveDate(this, e.getLocation()));
     }
 
     private Init() {
@@ -47,9 +40,5 @@ export default class Game extends cc.Component {
         newPlayer.setPosition(0, 0);
         let player = newPlayer.getComponent(Player);
         player.Init(this);
-    }
-
-    protected onDestroy(): void {
-        this.node.on(cc.Node.EventType.MOUSE_MOVE, this.MouseMove, this);
     }
 }

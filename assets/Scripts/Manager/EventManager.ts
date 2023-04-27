@@ -1,5 +1,6 @@
 export enum EventType {
     MouseMove,
+    MouseDown,
 }
 export default class EventManager {
     public static instance: EventManager;
@@ -28,7 +29,7 @@ export default class EventManager {
         this.eventMap.set(eventType, funs);
     }
 
-    public Send(eventType: EventType, date: EventDateBase) {
+    public Send(eventType: EventType, date: EventDateBase = null) {
         let funs: Function[];
         funs = this.eventMap.get(eventType);
         if (!funs) return;

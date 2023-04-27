@@ -22,13 +22,13 @@ export default class WeaponBase extends RogueLikeObjectBase {
         if (this.fireCd <= 0) {
             this.Fire();
         } else {
-            // console.log("武器冷却中");
+            console.log("武器冷却中");
         }
     }
 
     protected Fire() {
         this.fireCd = this.fireMaxCd;
-        // console.log("Fire!!!");
+        console.log("Fire!!!");
     }
 
     protected update(dt: number): void {
