@@ -4,9 +4,9 @@ import RoleBase from "./RoleBase";
 export default class StateBase {
     protected _role: RoleBase = null;
     protected animator: Animator = null;
-    constructor(role: RoleBase, animator: Animator) {
+    constructor(role: RoleBase) {
         this._role = role;
-        this.animator = animator;
+        this.animator = role.GetAnimator();
     }
     //start------------虚方法-----------
     /**进入该状态时被调用 */
