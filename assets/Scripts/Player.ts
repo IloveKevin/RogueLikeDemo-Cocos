@@ -1,3 +1,5 @@
+import EnemyBase from "./Base/EnemyBase";
+import EnemyDetector from "./EnemyDetector";
 import WeaponHolder from "./WeaponHolder";
 
 const { ccclass, property } = cc._decorator;
@@ -5,20 +7,6 @@ const { ccclass, property } = cc._decorator;
 @ccclass
 export default class Player extends cc.Component {
     public weaponHolder: WeaponHolder;
-
-    @property(cc.Label)
-    label: cc.Label = null;
-
-    @property
-    text: string = 'hello';
-
-    // LIFE-CYCLE CALLBACKS:
-
-    // onLoad () {}
-
-    start() {
-
-    }
-
-    // update (dt) {}
+    public enemyDetector: EnemyDetector;
+    public target: EnemyBase;
 }
