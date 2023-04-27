@@ -2,11 +2,10 @@ import PlayerIdle from "./AnimatorState/Player/PlayerIdel";
 import PlayerMove from "./AnimatorState/Player/PlayerMove";
 import EnemyBase from "./Base/EnemyBase";
 import RoleBase from "./Base/RoleBase";
-import WeaponBase from "./Base/WeaponBase";
-import DefaultWeapon from "./DefaultWeapon";
 import EnemyDetector from "./EnemyDetector";
 import Game from "./Game";
 import FSMManager from "./Manager/FSMManager";
+import DefaultWeapon from "./Weapon/DefaultWeapon";
 import WeaponHolder from "./WeaponHolder";
 
 const { ccclass, property } = cc._decorator;
@@ -55,3 +54,4 @@ export default class Player extends RoleBase {
         if (this.target) this.weaponHolder.TryFire();
     }
 }
+

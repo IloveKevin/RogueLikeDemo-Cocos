@@ -1,6 +1,5 @@
-import WeaponBase from "./Base/WeaponBase";
-import Game from "./Game";
-import WeaponHolder from "./WeaponHolder";
+import WeaponBase from "../Base/WeaponBase";
+import WeaponHolder from "../WeaponHolder";
 
 const { ccclass, property } = cc._decorator;
 
