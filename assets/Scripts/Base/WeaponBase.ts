@@ -1,4 +1,5 @@
-import Game from "../Game";
+import DefaultBullet from "../Bullet/DefaultBullet";
+import Util from "../Util/Util";
 import WeaponHolder from "../WeaponHolder";
 import RogueLikeObjectBase from "./RogueLikeObjectBase";
 
@@ -10,16 +11,18 @@ export default class WeaponBase extends RogueLikeObjectBase {
     bulltePrefab: cc.Prefab = null;
     @property(cc.Node)
     gunpointNode: cc.Node = null;
+    @property(cc.JsonAsset)
+    weaponAsset: cc.JsonAsset = null;
     protected baseHarm: number;
     protected fireCd: number;
     protected fireMaxCd: number;
     protected weaponHolder: WeaponHolder;
 
-    public WeaponBaseInit(weaponHolder: WeaponHolder, fireMaxCd: number) {
+    public WeaponBaseInit(weaponHolder: WeaponHolder) {
         super.Init(weaponHolder.game);
         this.weaponHolder = weaponHolder;
         this.fireCd = 0;
-        this.fireMaxCd = fireMaxCd;
+        this.fireMaxCd = this.weaponAsset.json.fireMaxCd;
     }
 
     public TryFire() {
@@ -32,7 +35,13 @@ export default class WeaponBase extends RogueLikeObjectBase {
 
     protected Fire() {
         this.fireCd = this.fireMaxCd;
-        console.log("Fire!!!");
+        let radian = cc.misc.degreesToRadians(this.node.angle);
+        let moveDir = cc.Vec2.UP.rotate(radian);
+        let newBullet = cc.instantiate(this.bulltePrefab);
+        newBullet.setParent(this.game.node);
+        newBullet.setPosition(Util.GetWorldPosToNodePos(newBullet, Util.GetNodeWorldPos(this.gunpointNode)));
+        let bullet = newBullet.getComponent(DefaultBullet);
+        bullet.BulletBaseInit(this.game, moveDir);
     }
 
     protected update(dt: number): void {

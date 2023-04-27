@@ -5,19 +5,21 @@ const { ccclass, property } = cc._decorator;
 
 @ccclass
 export default class BulletBase extends RogueLikeObjectBase {
+    @property(cc.JsonAsset)
+    bulletAsset: cc.JsonAsset = null;
     protected speed: number;
     protected moveDir: cc.Vec2;
     protected baseHarm: number;
     protected surviveTime: number;
     protected surviveMaxTime: number;
 
-    public BulletBaseInit(game: Game, speed: number, moveDir: cc.Vec2, baseHarm: number, surviveMaxTime: number): void {
+    public BulletBaseInit(game: Game, moveDir: cc.Vec2): void {
         super.Init(game);
-        this.speed = speed;
+        this.speed = this.bulletAsset.json.speed;
         this.moveDir = moveDir;
-        this.baseHarm = baseHarm;
+        this.baseHarm = this.bulletAsset.json.baseHarm;
         this.surviveTime = 0;
-        this.surviveMaxTime = surviveMaxTime;
+        this.surviveMaxTime = this.bulletAsset.json.surviveMaxTime;
     }
 
     protected Move(dt: number) {

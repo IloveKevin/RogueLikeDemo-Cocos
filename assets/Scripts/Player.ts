@@ -39,7 +39,7 @@ export default class Player extends RoleBase {
         this.animator.ChangeState(PlayerIdle.name);
         let newDefaultWeapon = cc.instantiate(this.game.defaultWeaponPrefab);
         let defaultWeapon = newDefaultWeapon.getComponent(DefaultWeapon);
-        defaultWeapon.DefaultWeaponInit(this.weaponHolder);
+        defaultWeapon.WeaponBaseInit(this.weaponHolder);
         this.weaponHolder.ChangeWeapon(defaultWeapon);
     }
 
