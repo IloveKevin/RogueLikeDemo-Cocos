@@ -27,8 +27,8 @@ export default class Player extends RoleBase {
         cc.systemEvent.on(cc.SystemEvent.EventType.KEY_UP, this.OnKeyUp, this);
     }
 
-    public Init(game: Game) {
-        super.Init(game);
+    public PlayerInit(game: Game) {
+        super.RoleBaseInit(game);
         this.autoFire = false;
         this.speed = 100;
         this.weaponHolder.WeaponHolderInit(this);

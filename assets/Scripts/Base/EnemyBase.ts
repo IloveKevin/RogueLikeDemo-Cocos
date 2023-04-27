@@ -6,7 +6,7 @@ const { ccclass, property } = cc._decorator;
 
 @ccclass
 export default class EnemyBase extends RoleBase {
-    public Init(game: Game) {
+    public EnemyInit(game: Game) {
         super.Init(game);
         (<EnemyManager>this.game.moudleManager.GetMoudle(EnemyManager.name)).AddEnemy(this);
     }

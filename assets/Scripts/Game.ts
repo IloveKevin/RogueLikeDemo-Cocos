@@ -31,7 +31,7 @@ export default class Game extends cc.Component {
         newEnemy.setParent(this.node);
         newEnemy.setPosition(0, 0);
         let enemy = newEnemy.getComponent(EnemyBase);
-        enemy.Init(this);
+        enemy.EnemyInit(this);
     }
 
     private InitPlayer() {
@@ -39,6 +39,6 @@ export default class Game extends cc.Component {
         newPlayer.setParent(this.node);
         newPlayer.setPosition(0, 0);
         let player = newPlayer.getComponent(Player);
-        player.Init(this);
+        player.PlayerInit(this);
     }
 }

@@ -9,7 +9,7 @@ export default class RoleBase extends RogueLikeObjectBase {
     protected speed: number;
     protected moveDir: number;
     protected animator: Animator;
-    public Init(game: Game) {
+    public RoleBaseInit(game: Game) {
         super.Init(game);
     }
     public GetSpeed(): number {
