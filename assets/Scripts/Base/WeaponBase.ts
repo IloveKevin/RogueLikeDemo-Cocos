@@ -11,10 +11,11 @@ export default class WeaponBase extends RogueLikeObjectBase {
     protected fireMaxCd: number;
     protected weaponHolder: WeaponHolder;
 
-    public WeaponBaseInit(weaponHolder: WeaponHolder) {
+    public WeaponBaseInit(weaponHolder: WeaponHolder, fireMaxCd: number) {
         this.weaponHolder = weaponHolder;
         super.Init(weaponHolder.game);
         this.fireCd = 0;
+        this.fireMaxCd = fireMaxCd;
     }
 
     public TryFire() {
