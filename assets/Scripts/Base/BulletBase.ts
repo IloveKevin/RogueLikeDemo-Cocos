@@ -16,6 +16,7 @@ export default class BulletBase extends RogueLikeObjectBase {
         this.speed = speed;
         this.moveDir = moveDir;
         this.baseHarm = baseHarm;
+        this.surviveTime = 0;
         this.surviveMaxTime = surviveMaxTime;
     }
 
@@ -24,9 +25,18 @@ export default class BulletBase extends RogueLikeObjectBase {
         this.node.y += this.moveDir.y * this.speed * dt;
     }
 
+    protected Veer() {
+        let rotation = cc.misc.radiansToDegrees(this.moveDir.angle(cc.Vec2.UP));
+        if (this.moveDir.x < 0) {
+            rotation = -rotation;
+        }
+        this.node.angle = -rotation;
+    }
+
     protected update(dt: number): void {
         this.surviveTime += dt;
         if (this.surviveTime >= this.surviveMaxTime) this.node.destroy();
         this.Move(dt);
+        this.Veer();
     }
 }

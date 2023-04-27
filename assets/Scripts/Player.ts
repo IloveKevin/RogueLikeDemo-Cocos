@@ -3,6 +3,7 @@ import PlayerMove from "./AnimatorState/Player/PlayerMove";
 import EnemyBase from "./Base/EnemyBase";
 import RoleBase from "./Base/RoleBase";
 import EnemyDetector from "./EnemyDetector";
+import MouseDate from "./EventDate/MouseDate";
 import Game from "./Game";
 import EventManager, { EventType } from "./Manager/EventManager";
 import FSMManager from "./Manager/FSMManager";
@@ -42,7 +43,7 @@ export default class Player extends RoleBase {
         this.weaponHolder.ChangeWeapon(defaultWeapon);
     }
 
-    private OnMouseDown() {
+    private OnMouseDown(date: MouseDate) {
         if (this.target) this.weaponHolder.TryFire();
     }
 
@@ -54,6 +55,7 @@ export default class Player extends RoleBase {
     }
 
     protected onDestroy(): void {
+        EventManager.GetInstance().Off(EventType.MouseDown, this.OnMouseDown.bind(this));
         cc.systemEvent.off(cc.SystemEvent.EventType.KEY_DOWN, this.OnKeyDown, this);
         cc.systemEvent.off(cc.SystemEvent.EventType.KEY_UP, this.OnKeyUp, this);
     }

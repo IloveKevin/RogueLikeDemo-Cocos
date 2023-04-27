@@ -6,14 +6,18 @@ const { ccclass, property } = cc._decorator;
 
 @ccclass
 export default class WeaponBase extends RogueLikeObjectBase {
+    @property(cc.Prefab)
+    bulltePrefab: cc.Prefab = null;
+    @property(cc.Node)
+    gunpointNode: cc.Node = null;
     protected baseHarm: number;
     protected fireCd: number;
     protected fireMaxCd: number;
     protected weaponHolder: WeaponHolder;
 
     public WeaponBaseInit(weaponHolder: WeaponHolder, fireMaxCd: number) {
-        this.weaponHolder = weaponHolder;
         super.Init(weaponHolder.game);
+        this.weaponHolder = weaponHolder;
         this.fireCd = 0;
         this.fireMaxCd = fireMaxCd;
     }

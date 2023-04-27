@@ -1,4 +1,4 @@
-import MouseMouveDate from "./EventDate/MouseMouveDate";
+import MouseDate from "./EventDate/MouseDate";
 import EventManager, { EventType } from "./Manager/EventManager";
 
 const { ccclass, property } = cc._decorator;
@@ -15,7 +15,7 @@ export default class MouseInput extends cc.Component {
     }
 
     public MouseMove(e: cc.Event.EventMouse) {
-        EventManager.GetInstance().Send(EventType.MouseMove, new MouseMouveDate(this, e.getLocation()));
+        EventManager.GetInstance().Send(EventType.MouseMove, new MouseDate(this, e.getLocation()));
     }
 
     protected onDestroy(): void {

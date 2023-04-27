@@ -1,7 +1,7 @@
 import BulletBase from "./Base/BulletBase";
 import RogueLikeObjectBase from "./Base/RogueLikeObjectBase";
 import WeaponBase from "./Base/WeaponBase";
-import MouseMouveDate from "./EventDate/MouseMouveDate";
+import MouseDate from "./EventDate/MouseDate";
 import EventManager, { EventType } from "./Manager/EventManager";
 import Player from "./Player";
 import Util from "./Util/Util";
@@ -17,9 +17,9 @@ export default class WeaponHolder extends RogueLikeObjectBase {
         EventManager.GetInstance().On(EventType.MouseMove, this.OnMouseMove.bind(this));
     }
 
-    public OnMouseMove(date: MouseMouveDate) {
+    public OnMouseMove(date: MouseDate) {
         let dir = date.MousePos.sub(Util.GetNodeWorldPos(this.node));
-        let rotation = Util.ArcToAngle(dir.angle(cc.Vec2.UP));
+        let rotation = cc.misc.radiansToDegrees(dir.angle(cc.Vec2.UP));
         let scaleX = 1;
         if (dir.x < 0) {
             rotation = -rotation;
@@ -31,7 +31,7 @@ export default class WeaponHolder extends RogueLikeObjectBase {
 
     public WeaponHolderInit(player: Player) {
         this.player = player;
-        super.Init(this.game);
+        super.Init(player.game);
     }
 
     public ChangeWeapon(weapon: WeaponBase) {
