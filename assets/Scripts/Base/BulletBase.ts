@@ -11,8 +11,12 @@ export default class BulletBase extends RogueLikeObjectBase {
     protected surviveTime: number;
     protected surviveMaxTime: number;
 
-    public Init(game: Game): void {
+    public BulletBaseInit(game: Game, speed: number, moveDir: cc.Vec2, baseHarm: number, surviveMaxTime: number): void {
         super.Init(game);
+        this.speed = speed;
+        this.moveDir = moveDir;
+        this.baseHarm = baseHarm;
+        this.surviveMaxTime = surviveMaxTime;
     }
 
     protected Move(dt: number) {
