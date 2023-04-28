@@ -1,9 +1,7 @@
-import WeaponBase from "../Base/WeaponBase";
-import DefaultBullet from "../Bullet/DefaultBullet";
-import Util from "../Util/Util";
+import BulletWeaponBase from "../Base/BulletWeaponBase";
 
 const { ccclass, property } = cc._decorator;
 
 @ccclass
-export default class DefaultWeapon extends WeaponBase {
+export default class DefaultWeapon extends BulletWeaponBase {
 }

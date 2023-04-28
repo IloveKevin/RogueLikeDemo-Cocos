@@ -7,8 +7,6 @@ const { ccclass, property } = cc._decorator;
 
 @ccclass
 export default class WeaponBase extends RogueLikeObjectBase {
-    @property(cc.Prefab)
-    bulltePrefab: cc.Prefab = null;
     @property(cc.Node)
     gunpointNode: cc.Node = null;
     @property(cc.JsonAsset)
@@ -22,6 +20,7 @@ export default class WeaponBase extends RogueLikeObjectBase {
         super.Init(weaponHolder.game);
         this.weaponHolder = weaponHolder;
         this.fireCd = 0;
+        this.baseHarm = this.weaponAsset.json.baseHarm;
         this.fireMaxCd = this.weaponAsset.json.fireMaxCd;
     }
 
@@ -34,14 +33,7 @@ export default class WeaponBase extends RogueLikeObjectBase {
     }
 
     protected Fire() {
-        this.fireCd = this.fireMaxCd;
-        let radian = cc.misc.degreesToRadians(this.node.angle);
-        let moveDir = cc.Vec2.UP.rotate(radian);
-        let newBullet = cc.instantiate(this.bulltePrefab);
-        newBullet.setParent(this.game.node);
-        newBullet.setPosition(Util.GetWorldPosToNodePos(newBullet, Util.GetNodeWorldPos(this.gunpointNode)));
-        let bullet = newBullet.getComponent(DefaultBullet);
-        bullet.BulletBaseInit(this.game, moveDir);
+        console.log("Fire!!!");
     }
 
     protected update(dt: number): void {

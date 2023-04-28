@@ -451,14 +451,14 @@
       "__id__": 1
     },
     "_enabled": true,
-    "bulltePrefab": {
-      "__uuid__": "17af03ec-7bda-492f-9cba-5c1ad1918929"
-    },
     "gunpointNode": {
       "__id__": 10
     },
     "weaponAsset": {
-      "__uuid__": "9fffdd22-f721-4343-afc0-b622a63e6251"
+      "__uuid__": "b57a655b-ed9c-4712-91cd-65a696d45b21"
+    },
+    "bulltePrefab": {
+      "__uuid__": "17af03ec-7bda-492f-9cba-5c1ad1918929"
     },
     "_id": ""
   },

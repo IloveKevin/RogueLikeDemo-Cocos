@@ -44,7 +44,7 @@ export default class Player extends RoleBase {
     }
 
     private OnMouseDown(date: MouseDate) {
-        if (this.target) this.weaponHolder.TryFire();
+        this.weaponHolder.TryFire();
     }
 
     private OnKeyDown(event: cc.Event.EventKeyboard) {
