@@ -5,6 +5,7 @@ const { ccclass, property } = cc._decorator;
 
 @ccclass
 export default class MouseInput extends cc.Component {
+    private pointerPos: cc.Vec2;
     protected onLoad(): void {
         this.node.on(cc.Node.EventType.TOUCH_START, this.OnTouchStart, this);
         this.node.on(cc.Node.EventType.TOUCH_END, this.OnTouchEnd, this);
@@ -20,7 +21,11 @@ export default class MouseInput extends cc.Component {
     }
 
     public MouseMove(e: cc.Event.EventMouse) {
-        EventManager.GetInstance().Send(EventType.MouseMove, new MouseDate(this, e.getLocation()));
+        this.pointerPos = e.getLocation();
+    }
+
+    protected update(dt: number): void {
+        if (this.pointerPos) EventManager.GetInstance().Send(EventType.MouseMove, new MouseDate(this, this.pointerPos));
     }
 
     protected onDestroy(): void {

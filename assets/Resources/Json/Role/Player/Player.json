@@ -1,4 +1,5 @@
 {
-    "speed": 100,
+    "speed": 200,
+    "runSpeed": 400,
     "HP": 10
 }

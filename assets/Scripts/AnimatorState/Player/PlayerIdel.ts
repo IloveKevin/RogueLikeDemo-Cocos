@@ -1,5 +1,4 @@
 import StateBase from "../../Base/StateBase";
-import PlayerMove from "./PlayerMove";
 export default class PlayerIdle extends StateBase {
     //start------------虚方法-----------
     /**进入该状态时被调用 */
@@ -16,7 +15,7 @@ export default class PlayerIdle extends StateBase {
             cc.macro.KEY.d == event.keyCode ||
             cc.macro.KEY.w == event.keyCode ||
             cc.macro.KEY.s == event.keyCode) {
-            this.animator.ChangeState(PlayerMove.name);
+            this.animator.ChangeState("PlayerMove");
             this.animator.OnkeyDown(event);
         }
     }

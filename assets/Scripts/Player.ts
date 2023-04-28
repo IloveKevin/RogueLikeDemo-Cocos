@@ -1,9 +1,9 @@
 import PlayerIdle from "./AnimatorState/Player/PlayerIdel";
 import PlayerMove from "./AnimatorState/Player/PlayerMove";
+import PlayerRun from "./AnimatorState/Player/PlayerRun";
 import EnemyBase from "./Base/EnemyBase";
 import RoleBase from "./Base/RoleBase";
 import EnemyDetector from "./EnemyDetector";
-import MouseDate from "./EventDate/MouseDate";
 import Game from "./Game";
 import EventManager, { EventType } from "./Manager/EventManager";
 import FSMManager from "./Manager/FSMManager";
@@ -20,7 +20,8 @@ export default class Player extends RoleBase {
     public enemyDetector: EnemyDetector = null;
     public target: EnemyBase;
     public autoFire: boolean;
-    private CanFire: boolean;
+    private canFire: boolean;
+    private runSpeed: number;
 
     protected onLoad(): void {
         EventManager.GetInstance().On(EventType.MouseDown, this.OnMouseDown.bind(this));
@@ -29,16 +30,22 @@ export default class Player extends RoleBase {
         cc.systemEvent.on(cc.SystemEvent.EventType.KEY_UP, this.OnKeyUp, this);
     }
 
+    public GetRunSpeed(): number {
+        return this.runSpeed;
+    }
+
     public PlayerInit(game: Game) {
         super.RoleBaseInit(game);
+        this.runSpeed = this.roleAsset.json.runSpeed;
         this.autoFire = false;
-        this.CanFire = false;
+        this.canFire = false;
         this.weaponHolder.WeaponHolderInit(this);
         this.enemyDetector.EnemyDetectorInit(this);
         this.animator = (<FSMManager>this.game.moudleManager.GetMoudle(FSMManager.name)).GetAnimator("PlayerAnimator");
-        this.animator.AddState(PlayerIdle.name, new PlayerIdle(this));
-        this.animator.AddState(PlayerMove.name, new PlayerMove(this));
-        this.animator.ChangeState(PlayerIdle.name);
+        this.animator.AddState("PlayerIdle", new PlayerIdle(this));
+        this.animator.AddState("PlayerMove", new PlayerMove(this));
+        this.animator.AddState("PlayerRun", new PlayerRun(this));
+        this.animator.ChangeState("PlayerIdle");
         let newDefaultWeapon = cc.instantiate(this.game.defaultWeaponPrefab);
         let defaultWeapon = newDefaultWeapon.getComponent(DefaultWeapon);
         defaultWeapon.WeaponBaseInit(this.weaponHolder);
@@ -46,11 +53,11 @@ export default class Player extends RoleBase {
     }
 
     private OnMouseDown() {
-        this.CanFire = true;
+        this.canFire = true;
     }
 
     private OnMouseUp() {
-        this.CanFire = false;
+        this.canFire = false;
     }
 
     private OnKeyDown(event: cc.Event.EventKeyboard) {
@@ -68,7 +75,7 @@ export default class Player extends RoleBase {
     }
 
     protected update(dt: number): void {
-        if ((this.target && this.autoFire) || this.CanFire) this.weaponHolder.TryFire();
+        if ((this.target && this.autoFire) || this.canFire) this.weaponHolder.TryFire();
     }
 }
 

@@ -20,6 +20,9 @@ export default class Animator {
         if (null == this.state) return;
         this.state.OnKeyUp(e);
     }
+    public GetState() {
+        return this.state;
+    }
     public ChangeState(name: string) {
         if (!this.stateMap.has(name)) return;
         if (null != this.state) this.state.OnExit();
