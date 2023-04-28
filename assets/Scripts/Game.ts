@@ -17,6 +17,7 @@ export default class Game extends cc.Component {
     @property(cc.Prefab)
     defaultWeaponPrefab: cc.Prefab = null;
     protected onLoad(): void {
+        cc.director.getPhysicsManager().enabled = true;
         this.Init();
     }
 

@@ -24,9 +24,13 @@ export default class PlayerMove extends StateBase {
     public OnUpdate(dt: number): void {
         let moveDir = this.inputDir.normalize();
         let speed = this._role.GetSpeed();
-        this._role.node.x += moveDir.x * dt * speed;
-        this._role.node.y += moveDir.y * dt * speed;
-        if (this.inputDir.equals(cc.Vec2.ZERO)) {
+        let rb = this._role.GetRb();
+        rb.linearVelocity = moveDir.mul(speed);
+        console.log(rb.linearVelocity.x, rb.linearVelocity.y);
+
+        // this._role.node.x += moveDir.x * dt * speed;
+        // this._role.node.y += moveDir.y * dt * speed;
+        if (rb.linearVelocity.equals(cc.Vec2.ZERO)) {
             this.animator.ChangeState(PlayerIdle.name);
         }
     }

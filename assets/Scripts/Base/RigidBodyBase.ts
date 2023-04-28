@@ -10,4 +10,7 @@ export default class RigidBodyBase extends RogueLikeObjectBase {
         super.Init(game);
         this.rb = this.node.getComponent(cc.RigidBody);
     }
+    public GetRb() {
+        return this.rb;
+    }
 }
