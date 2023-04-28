@@ -1,6 +1,7 @@
 export enum EventType {
     MouseMove,
     MouseDown,
+    MouseUp,
 }
 export default class EventManager {
     public static instance: EventManager;

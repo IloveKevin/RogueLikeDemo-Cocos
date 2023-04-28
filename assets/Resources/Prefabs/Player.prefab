@@ -553,6 +553,9 @@
       "__id__": 1
     },
     "_enabled": true,
+    "roleAsset": {
+      "__uuid__": "522c3ec7-410f-4e15-abd4-2e7b539fba2b"
+    },
     "weaponHolder": {
       "__id__": 11
     },

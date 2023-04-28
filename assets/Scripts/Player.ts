@@ -20,9 +20,11 @@ export default class Player extends RoleBase {
     public enemyDetector: EnemyDetector = null;
     public target: EnemyBase;
     public autoFire: boolean;
+    private CanFire: boolean;
 
     protected onLoad(): void {
         EventManager.GetInstance().On(EventType.MouseDown, this.OnMouseDown.bind(this));
+        EventManager.GetInstance().On(EventType.MouseUp, this.OnMouseUp.bind(this));
         cc.systemEvent.on(cc.SystemEvent.EventType.KEY_DOWN, this.OnKeyDown, this);
         cc.systemEvent.on(cc.SystemEvent.EventType.KEY_UP, this.OnKeyUp, this);
     }
@@ -30,7 +32,7 @@ export default class Player extends RoleBase {
     public PlayerInit(game: Game) {
         super.RoleBaseInit(game);
         this.autoFire = false;
-        this.speed = 100;
+        this.CanFire = false;
         this.weaponHolder.WeaponHolderInit(this);
         this.enemyDetector.EnemyDetectorInit(this);
         this.animator = (<FSMManager>this.game.moudleManager.GetMoudle(FSMManager.name)).GetAnimator("PlayerAnimator");
@@ -43,8 +45,12 @@ export default class Player extends RoleBase {
         this.weaponHolder.ChangeWeapon(defaultWeapon);
     }
 
-    private OnMouseDown(date: MouseDate) {
-        this.weaponHolder.TryFire();
+    private OnMouseDown() {
+        this.CanFire = true;
+    }
+
+    private OnMouseUp() {
+        this.CanFire = false;
     }
 
     private OnKeyDown(event: cc.Event.EventKeyboard) {
@@ -56,12 +62,13 @@ export default class Player extends RoleBase {
 
     protected onDestroy(): void {
         EventManager.GetInstance().Off(EventType.MouseDown, this.OnMouseDown.bind(this));
+        EventManager.GetInstance().Off(EventType.MouseUp, this.OnMouseUp.bind(this));
         cc.systemEvent.off(cc.SystemEvent.EventType.KEY_DOWN, this.OnKeyDown, this);
         cc.systemEvent.off(cc.SystemEvent.EventType.KEY_UP, this.OnKeyUp, this);
     }
 
     protected update(dt: number): void {
-        if (this.target && this.autoFire) this.weaponHolder.TryFire();
+        if ((this.target && this.autoFire) || this.CanFire) this.weaponHolder.TryFire();
     }
 }
 
