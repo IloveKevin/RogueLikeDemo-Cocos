@@ -1,10 +1,10 @@
 import Game from "../Game";
-import RogueLikeObjectBase from "./RogueLikeObjectBase";
+import RigidBodyBase from "./RigidBodyBase";
 
 const { ccclass, property } = cc._decorator;
 
 @ccclass
-export default class BulletBase extends RogueLikeObjectBase {
+export default class BulletBase extends RigidBodyBase {
     @property(cc.JsonAsset)
     bulletAsset: cc.JsonAsset = null;
     protected speed: number;
@@ -14,7 +14,7 @@ export default class BulletBase extends RogueLikeObjectBase {
     protected surviveMaxTime: number;
 
     public BulletBaseInit(game: Game, moveDir: cc.Vec2): void {
-        super.Init(game);
+        super.RigidBodyBaseInit(game);
         this.speed = this.bulletAsset.json.speed;
         this.moveDir = moveDir;
         this.baseHarm = this.bulletAsset.json.baseHarm;

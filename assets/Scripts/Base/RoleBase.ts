@@ -1,11 +1,11 @@
 import Animator from "../Animator";
 import Game from "../Game";
-import RogueLikeObjectBase from "./RogueLikeObjectBase";
+import RigidBodyBase from "./RigidBodyBase";
 
 const { ccclass, property } = cc._decorator;
 
 @ccclass
-export default class RoleBase extends RogueLikeObjectBase {
+export default class RoleBase extends RigidBodyBase {
     @property(cc.JsonAsset)
     roleAsset: cc.JsonAsset = null;
     protected speed: number;
@@ -13,7 +13,7 @@ export default class RoleBase extends RogueLikeObjectBase {
     protected moveDir: number;
     protected animator: Animator;
     public RoleBaseInit(game: Game) {
-        super.Init(game);
+        super.RigidBodyBaseInit(game);
         this.speed = this.roleAsset.json.speed;
         this.HP = this.roleAsset.json.HP;
     }
