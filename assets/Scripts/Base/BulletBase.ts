@@ -22,9 +22,8 @@ export default class BulletBase extends RigidBodyBase {
         this.surviveMaxTime = this.bulletAsset.json.surviveMaxTime;
     }
 
-    protected Move(dt: number) {
-        this.node.x += this.moveDir.x * this.speed * dt;
-        this.node.y += this.moveDir.y * this.speed * dt;
+    protected Move() {
+        this.rb.linearVelocity = this.moveDir.mul(this.speed);
     }
 
     protected Veer() {
@@ -38,7 +37,7 @@ export default class BulletBase extends RigidBodyBase {
     protected update(dt: number): void {
         this.surviveTime += dt;
         if (this.surviveTime >= this.surviveMaxTime) this.node.destroy();
-        this.Move(dt);
+        this.Move();
         this.Veer();
     }
 }
